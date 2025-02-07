@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article
-from . forms import CommentForm
+from . forms import CommentForm,ContactForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def homeView(request):
@@ -60,3 +62,21 @@ def article_detail(request, article_id):
         'related_articles': related_articles,
         'latest_articles': latest_articles
     })
+
+
+def contact(request):
+    submitted = False
+    if request.method=="POST":
+        form =ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('blog/contact?submitted=True')
+    else:
+         form =ContactForm
+         if 'submitted' in request.GET:
+              submitted=True
+    return render(request, 'blog/contact.html', {'form':form, 'submitted':submitted })
+
+def about(request):
+    return render(request, 'blog/about.html', {})
+    

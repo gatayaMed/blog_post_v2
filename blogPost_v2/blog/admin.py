@@ -17,3 +17,10 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
     list_filter = ['name']
     search_fields = ['name']
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['Name','email','subject','content']
+    list_filter = ['Name','email']
+    search_fields = ['Name','email']    

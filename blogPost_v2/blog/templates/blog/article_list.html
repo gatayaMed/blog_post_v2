@@ -1,0 +1,79 @@
+{% extends 'base.html'%}  
+{% load static %}
+
+
+        {%block content%}
+    <h1>Articles</h1>
+    <ul>
+        {% for article in articles %}
+            <li>
+                
+                <div class="mt-4 p-5 bg-secondary text-white rounded " style="width:800px" >
+                    
+                    <h2 >{{ article.title }}</h2>
+                     {{article.content |truncatewords:30|linebreaks }}
+                     
+                    <p>by {{ article.author.username }} | Published: {{ article.created_at }} | Updated: {{ article.updated_at }}</p>
+                    <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Read More..</a>
+                </div> 
+           
+            </li>
+            
+        {% endfor %}
+        
+    </ul>
+
+  
+
+
+    <!-- Latest Articles Section -->
+    <h2>Latest Articles</h2>
+    <ul>
+        {% for article in latest_articles %}
+            <li><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></li>
+        {% endfor %}
+    </ul>
+     <!--Just for testing the pagination 
+     {{articles}}
+     <br/>
+     HAS Previous :{{articles.has_previous}}<br/> 
+     
+     HAS Next :{{articles.has_next}} <br/> 
+     Current page :{{articles.number}} <br/>
+     Number Of Pages :{{articles.paginator.num_pages}} <br/>
+     -->
+     <hr/>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if articles.has_previous %}
+            <li class="page-item ">
+                <!--<a href="?page=1">&laquo First</a>-->
+                    <a class="page-link" href="?page={{ articles.previous_page_number }}"> Previous</a> 
+            </li>       
+            {% endif %}
+            <li class="page-item">
+                <a href="#" class="page-link">
+                Page {{ articles.number }} of {{ articles.paginator.num_pages }}.
+                </a>
+            </li>
+           <!-- for testing printing the number insted od page 2 of 3 
+            {%for i in nums %}
+            <li class="page-item">
+                <a href="?page= {{forloop.counter}}"> {{forloop.counter}}  </a>
+            </li>
+            {%endfor%}
+             -->
+        
+            {% if articles.has_next %}
+            <li class="page-item">
+                
+                <a class="page-link" href="?page={{ articles.next_page_number }}">Next</a>
+                <!--<a href="?page=1">&raquo Last</a>-->            
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    
+     {%endblock%}   
+ 

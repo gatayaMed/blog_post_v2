@@ -1,0 +1,55 @@
+{% extends 'base.html'%}  
+{% load static %}
+
+
+  
+  {%block content%}
+     <center>
+        <h1>Contact us </h1>
+         {%if submitted%}
+            Your message was submitted
+            Succsesfully !!!
+         {%else%}
+
+
+         
+         
+        <form  action="" method=POST>
+          
+          {%csrf_token%}
+          {{ form.as_p}}
+
+        <!--
+          <div class="form-row">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+        <div class="form-row">
+          
+          <div class="col-5">
+            <input type="text" class="form-control" placeholder="Full Name">
+          </div>
+          <br/>
+          <div class="col-5">
+            <input type="email" class="form-control" placeholder="Email address">
+          </div>
+          <br/>
+          <div class="col-5">
+            <input type="text" class="form-control" placeholder="Subject">
+          </div>
+          <br/>
+          <div class="col-5">
+            <textarea class="form-control"  rows="3" placeholder="Content"></textarea>
+          </div>
+          
+        </div>
+      </div>
+      </form>
+      -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    
+    </form>
+      {% endif %}
+     </center>   
+
+  {%endblock%}
