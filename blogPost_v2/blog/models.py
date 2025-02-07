@@ -27,3 +27,20 @@ class Article(models.Model):
 
     def latest_articles(self):
         return Article.objects.order_by('-created_at')[:3]  # Latest 3 articles
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article, related_name='comments', on_delete=models.CASCADE)
+    author = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment by {self.author}'
+
+
+class Contact(models.Model):
+    Name = models.CharField(max_length=100)
+    email =models.EmailField()
+    subject=models.CharField(max_length=100)
+    content =models.TextField()

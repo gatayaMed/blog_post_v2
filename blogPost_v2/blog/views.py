@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Article
+from . forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
@@ -37,3 +38,25 @@ def article_list(request):
 #     context_object_name = 'articles',
 #     paginate_by = 3
 #     template_name = 'blog/article_list.html'
+
+
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    related_articles = article.related_articles()
+    latest_articles = article.latest_articles()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.save()
+    else:
+        form = CommentForm()
+
+    return render(request, 'blog/article_detail.html', {
+        'article': article,
+        'form': form,
+        'related_articles': related_articles,
+        'latest_articles': latest_articles
+    })
