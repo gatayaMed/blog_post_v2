@@ -11,16 +11,16 @@
 <div class="container">
   <ul class="nav bg-info">
     <li class="nav-item">
-      <a class="nav-link link-light" href="/blog">HOME</a>
+      <a class="nav-link link-light" href="{% url 'home'%}">HOME</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link link-light" href="article_list/">Blog</a>
+      <a class="nav-link link-light" href=" {% url 'article_list'%}">Blog</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link link-light" href="about/">About</a>
+      <a class="nav-link link-light" href="{% url 'about'%}">About</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link link-light" href="contact/">Contact us</a>
+      <a class="nav-link link-light" href="{% url 'contact'%}">Contact us</a>
     </li>
   </ul>
   <br/><br/>
